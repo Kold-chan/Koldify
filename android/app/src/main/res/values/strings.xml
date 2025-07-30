@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">koldify</string>
+    <string name="title_activity_main">koldify</string>
+    <string name="package_name">com.koldify.app</string>
+    <string name="custom_url_scheme">com.koldify.app</string>
+</resources>

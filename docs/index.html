@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=0.8, maximum-scale=0.8, user-scalable=no">
+  <title>Koldify</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background-color: #121212;
+      color: white;
+      font-family: 'Inter', sans-serif;
+      text-align: center;
+      padding: 40px;
+    }
+
+    h1 {
+      color: #1DE9B6;
+    }
+
+    .profile-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      margin-top: 40px;
+    }
+
+    .profile-link {
+      display: inline-block;
+      background: linear-gradient(135deg, #1DE9B6, #0d925f, #abebdb);
+      padding: 20px 30px;
+      border-radius: 12px;
+      text-decoration: none;
+      color: black;
+      font-weight: bold;
+      font-size: 1.2rem;
+      box-shadow: 0 4px 15px rgba(148, 236, 214, 0.3);
+      transition: transform 0.2s, box-shadow 0.3s;
+      width: 220px;
+      background-size: 200% 200%;
+      animation: gradientShift 5s ease infinite;
+    }
+
+    .profile-link:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 20px rgba(0, 255, 191, 0.5);
+    }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Koldify</h1>
+  <h2>Elige Un Cantante</h2>
+
+  <div class="profile-container">
+    <a href="eminem.html" class="profile-link">Eminem</a>
+    <a href="crismj.html" class="profile-link">Cris Mj</a>
+    <a href="chystemc.html" class="profile-link">Chystemc</a>
+    <a href="miloj.html" class="profile-link">Milo J</a>
+    <a href="youngcister.html" class="profile-link">Young Cister</a>
+    <a href="pablochille.html" class="profile-link">Pablo Chill-e</a>
+    <a href="juicewrld.html" class="profile-link">Juice Wrld</a>
+    <a href="trippieredd.html" class="profile-link">Trippie Redd</a>
+  </div>
+</body>
+</html>
