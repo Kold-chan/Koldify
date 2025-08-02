@@ -2,10 +2,11 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=0.8, maximum-scale=0.8, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=0.75, maximum-scale=0.75, user-scalable=no">
   <title>Koldify</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
   <style>
+    
     body {
       background-color: #121212;
       color: white;
@@ -13,11 +14,6 @@
       text-align: center;
       padding: 40px;
     }
-
-    h1 {
-      color: #1DE9B6;
-    }
-
     .profile-container {
       display: flex;
       flex-direction: column;
@@ -25,7 +21,6 @@
       gap: 20px;
       margin-top: 40px;
     }
-
     .profile-link {
       display: inline-block;
       background: linear-gradient(135deg, #1DE9B6, #0d925f, #abebdb);
@@ -41,33 +36,688 @@
       background-size: 200% 200%;
       animation: gradientShift 5s ease infinite;
     }
-
     .profile-link:hover {
       transform: scale(1.05);
       box-shadow: 0 6px 20px rgba(0, 255, 191, 0.5);
     }
-
     @keyframes gradientShift {
       0% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
     }
+    .cantante-content { display: none; margin-top: 40px; }
+    .cantante-content.active { display: block; }
+    .back-btn {
+      color: #14c8a0;
+      text-decoration: none;
+      font-weight: bold;
+      margin-bottom: 2rem;
+      display: inline-block;
+      background: none;
+      border: none;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    .perfil-header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .perfil-center {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    .perfil-foto {
+      width: 110px;
+      height: 110px;
+      object-fit: cover;
+      border-radius: 50%;
+      margin-bottom: 0.5rem;
+      border: 3px solid #1DE9B6;
+      display: block;
+    }
+    .theme-toggle {
+      background: #14c8a0;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 20px;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 0.95rem;
+      transition: background 0.3s;
+      margin-bottom: 0.5rem;
+    }
+    .theme-toggle:hover {
+      background: #0d925f;
+    }
+    input[type="text"] {
+      width: 220px;
+      padding: 8px 12px;
+      border-radius: 20px;
+      border: none;
+      font-size: 1rem;
+      margin-bottom: 1.5rem;
+      background-color: #1e1e1e;
+      color: #fff;
+      box-shadow: 0 0 10px rgba(0, 255, 191, 0.1);
+      outline: none;
+      text-align: center;
+    }
+    .player {
+      background-color: #1e1e1e;
+      border-radius: 12px;
+      padding: 1.5rem;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+      margin: 0 auto 2rem auto;
+      transition: background 0.3s;
+    }
+    .cover {
+      width: 100%;
+      max-width: 200px;
+      border-radius: 10px;
+      margin-bottom: 1rem;
+    }
+    .song-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+    audio {
+      width: 100%;
+      outline: none;
+    }
+    body.light {
+      background: #f2f2f2;
+      color: #121212;
+    }
+    body.light .player { background: #fff; }
+    body.light input[type="text"] { background: #fff; color: #121212; }
   </style>
 </head>
 <body>
-
-  <h1>Koldify</h1>
-  <h2>Elige Un Cantante</h2>
-
-  <div class="profile-container">
-    <a href="eminem.html" class="profile-link">Eminem</a>
-    <a href="crismj.html" class="profile-link">Cris Mj</a>
-    <a href="chystemc.html" class="profile-link">Chystemc</a>
-    <a href="miloj.html" class="profile-link">Milo J</a>
-    <a href="youngcister.html" class="profile-link">Young Cister</a>
-    <a href="pablochille.html" class="profile-link">Pablo Chill-e</a>
-    <a href="juicewrld.html" class="profile-link">Juice Wrld</a>
-    <a href="trippieredd.html" class="profile-link">Trippie Redd</a>
+  <h1 id="main-title">Koldify</h1>
+  <h2 id="main-subtitle">Elige Un Cantante</h2>
+  <div class="profile-container" id="home">
+    <a href="#" class="profile-link" onclick="showCantante('crismj')">Cris Mj</a>
+    <a href="#" class="profile-link" onclick="showCantante('galeegalee')">Galee Galee</a>
+    <a href="#" class="profile-link" onclick="showCantante('chystemc')">Chystemc</a>
+    <a href="#" class="profile-link" onclick="showCantante('miloj')">Milo J</a>
+    <a href="#" class="profile-link" onclick="showCantante('youngcister')">Young Cister</a>
+    <a href="#" class="profile-link" onclick="showCantante('pablochille')">Pablo Chill-e</a>
+    <a href="#" class="profile-link" onclick="showCantante('eminem')">Eminem</a>
+    <a href="#" class="profile-link" onclick="showCantante('juicewrld')">Juice Wrld</a>
+    <a href="#" class="profile-link" onclick="showCantante('trippieredd')">Trippie Redd</a>
   </div>
+
+  <!-- CRIS MJ -->
+  <div id="crismj" class="cantante-content">
+    <button class="back-btn" onclick="showHome()">← Volver</button>
+    <div class="perfil-header">
+      <h1>Cris Mj</h1>
+      <div class="perfil-center">
+        <img src="imagenes/crismjperfil.jpeg" class="perfil-foto">
+        <button class="theme-toggle" id="modeToggle-crismj">🌙</button>
+      </div>
+      <input type="text" id="searchInput-crismj" placeholder="🔍 Buscar canción..." />
+    </div>
+    <div class="player">
+      <img src="imagenes/crismj1.jpeg" class="cover" alt="Portada">
+      <div class="song-title">Una Noche en Medellín – Cris Mj</div>
+      <audio controls>
+        <source src="musica/UnaNocheEnMedellin.mp3" type="audio/mpeg">
+      </audio>
+    </div>
+    <div class="player">
+      <img src="imagenes/crismj2.jpeg" class="cover" alt="Portada">
+      <div class="song-title">Marisola Remix – Cris Mj ft. Standly</div>
+      <audio controls>
+        <source src="musica/MarisolaRemix.mp3" type="audio/mpeg">
+      </audio>
+    </div>
+    <div class="player">
+      <img src="imagenes/crismj3.jpeg" class="cover" alt="Portada">
+      <div class="song-title">Locura y Maldad – Cris Mj</div>
+      <audio controls>
+        <source src="musica/LocuraYMaldad.mp3" type="audio/mpeg">
+      </audio>
+    </div>
+    <div class="player">
+      <img src="imagenes/crismj4.jpeg" class="cover" alt="Portada">
+      <div class="song-title">Daytona – Cris Mj</div>
+      <audio controls>
+        <source src="musica/Daytona.mp3" type="audio/mpeg">
+      </audio>
+    </div>
+    <div class="player">
+      <img src="imagenes/crismj5.jpeg" class="cover" alt="Portada">
+      <div class="song-title">Como Tú Ninguna – Cris Mj</div>
+      <audio controls>
+        <source src="musica/ComoTuNinguna.mp3" type="audio/mpeg">
+      </audio>
+    </div>
+    <div class="player">
+      <img src="imagenes/apoca.jpeg" class="cover" alt="Portada">
+      <div class="song-title">Apocalipsis – Cris Mj</div>
+      <audio controls>
+        <source src="musica/Apocalipsis.mp3" type="audio/mpeg">
+      </audio>
+    </div>
+  </div>
+
+  <!-- GALEE GALEE -->
+  <div id="galeegalee" class="cantante-content">
+    <button class="back-btn" onclick="showHome()">← Volver</button>
+    <div class="perfil-header">
+      <h1>Galee Galee</h1>
+      <div class="perfil-center">
+        <img src="imagenes/galeegaleeperfil.png" class="perfil-foto">
+        <button class="theme-toggle" id="modeToggle-galeegalee">🌙</button>
+      </div>
+      <input type="text" id="searchInput-galeegalee" placeholder="🔍 Buscar canción..." />
+    </div>
+    <div class="player">
+      <img src="imagenes/galeegalee1.png" class="cover" alt="Portada">
+      <div class="song-title">Énfasis – Galee Galee</div>
+      <audio controls>
+        <source src="musica/Enfasis.mp3" type="audio/mpeg">
+      </audio>
+    </div>
+    <div class="player">
+      <img src="imagenes/galeegalee2.avif" class="cover" alt="Portada">
+      <div class="song-title">NuVe – Galee Galee</div>
+      <audio controls>
+        <source src="musica/Nube.mp3" type="audio/mpeg">
+      </audio>
+    </div>
+    <div class="player">
+      <img src="imagenes/galeegalee3.avif" class="cover" alt="Portada">
+      <div class="song-title">DEJA – Galee Galee</div>
+      <audio controls>
+        <source src="musica/DEJA.mp3" type="audio/mpeg">
+      </audio>
+    </div>
+    <div class="player">
+      <img src="imagenes/galeegalee4.avif" class="cover" alt="Portada">
+      <div class="song-title">Toy Con La Bendición – Galee Galee ft. Cris Mj</div>
+      <audio controls>
+        <source src="musica/Toiconlabendicion.mp3" type="audio/mpeg">
+      </audio>
+    </div>
+    <div class="player">
+      <img src="imagenes/galeegalee5.avif" class="cover" alt="Portada">
+      <div class="song-title">Lo Malo – Galee Galee ft. Polimá Westcoast</div>
+      <audio controls>
+        <source src="musica/LoMalo.mp3" type="audio/mpeg">
+      </audio>
+    </div>
+  </div>
+
+  <!-- CHYSTEMC -->
+  <div id="chystemc" class="cantante-content">
+    <button class="back-btn" onclick="showHome()">← Volver</button>
+    <div class="perfil-header">
+      <h1>Chystemc</h1>
+      <div class="perfil-center">
+        <img src="imagenes/chystemcperfil.jpeg" class="perfil-foto">
+        <button class="theme-toggle" id="modeToggle-chystemc">🌙</button>
+      </div>
+      <input type="text" id="searchInput-chystemc" placeholder="🔍 Buscar canción..." />
+    </div>
+    <div class="player">
+      <img src="imagenes/chystemc1.jpeg" class="cover" alt="Portada">
+      <div class="song-title">Ella – Chystemc</div>
+      <audio controls>
+        <source src="musica/Ella.mp3" type="audio/mpeg">
+      </audio>
+    </div>
+    <div class="player">
+      <img src="imagenes/chystemc1.jpeg" class="cover" alt="Portada">
+      <div class="song-title">Guantes De Lana – Chystemc</div>
+      <audio controls>
+        <source src="musica/GuantesDeLana.mp3" type="audio/mpeg">
+      </audio>
+    </div>
+    <div class="player">
+      <img src="imagenes/chystemc3.jpeg" class="cover" alt="Portada">
+      <div class="song-title">Verbal Streets – Chystemc</div>
+      <audio controls>
+        <source src="musica/VerbalStreets.mp3" type="audio/mpeg">
+      </audio>
+    </div>
+    <div class="player">
+      <img src="imagenes/chystemc3.jpeg" class="cover" alt="Portada">
+      <div class="song-title">Mejor Viajar Ke Llegar – Chystemc</div>
+      <audio controls>
+        <source src="musica/MVKL.mp3" type="audio/mpeg">
+      </audio>
+    </div>
+    <div class="player">
+      <img src="imagenes/chystemc3.jpeg" class="cover" alt="Portada">
+      <div class="song-title">Razón o Zoronca – Chystemc</div>
+      <audio controls>
+        <source src="musica/RazonoZoronca.mp3" type="audio/mpeg">
+      </audio>
+    </div>
+  </div>
+
+  <!-- MILO J -->
+  <div id="miloj" class="cantante-content">
+    <button class="back-btn" onclick="showHome()">← Volver</button>
+    <div class="perfil-header">
+      <h1>Milo J</h1>
+      <div class="perfil-center">
+        <img src="imagenes/milojperfil.jpeg" class="perfil-foto">
+        <button class="theme-toggle" id="modeToggle-miloj">🌙</button>
+      </div>
+      <input type="text" id="searchInput-miloj" placeholder="🔍 Buscar canción..." />
+    </div>
+    <div class="player">
+      <img src="imagenes/miloj1.jpeg" class="cover" alt="Cover">
+      <div class="song-title">Tus Vueltas – Milo J</div>
+      <audio controls>
+        <source src="musica/TusVueltas.mp3" type="audio/mpeg">
+      </audio>
+    </div>
+    <div class="player">
+      <img src="imagenes/miloj2.jpeg" class="cover" alt="Cover">
+      <div class="song-title">M.A.I – Milo J</div>
+      <audio controls>
+        <source src="musica/Mai.mp3" type="audio/mpeg">
+      </audio>
+    </div>
+    <div class="player">
+      <img src="imagenes/miloj3.jpeg" class="cover" alt="Cover">
+      <div class="song-title">Rara Vez – Milo J</div>
+      <audio controls>
+        <source src="musica/RaraVez.mp3" type="audio/mpeg">
+      </audio>
+    </div>
+  </div>
+
+  <!-- YOUNG CISTER -->
+  <div id="youngcister" class="cantante-content">
+    <button class="back-btn" onclick="showHome()">← Volver</button>
+    <div class="perfil-header">
+      <h1>Young Cister</h1>
+      <div class="perfil-center">
+        <img src="imagenes/youngcisterperfil.jpeg" class="perfil-foto">
+        <button class="theme-toggle" id="modeToggle-youngcister">🌙</button>
+      </div>
+      <input type="text" id="searchInput-youngcister" placeholder="🔍 Buscar canción..." />
+    </div>
+    <div class="player">
+      <img src="imagenes/youngcister1.jpeg" class="cover" alt="Cover">
+      <div class="song-title">Qloo – Young Cister</div>
+      <audio controls>
+        <source src="musica/Qloo.mp3" type="audio/mpeg">
+      </audio>
+    </div>
+    <div class="player">
+      <img src="imagenes/youngcister2.jpeg" class="cover" alt="Cover">
+      <div class="song-title">Oh La La – Young Cister</div>
+      <audio controls>
+        <source src="musica/Ohlala.mp3" type="audio/mpeg">
+      </audio>
+    </div>
+    <div class="player">
+      <img src="imagenes/youngcister3.jpeg" class="cover" alt="Cover">
+      <div class="song-title">Miau – Young Cister</div>
+      <audio controls>
+        <source src="musica/Miau.mp3" type="audio/mpeg">
+      </audio>
+    </div>
+  </div>
+
+  <!-- PABLO CHILL-E -->
+  <div id="pablochille" class="cantante-content">
+    <button class="back-btn" onclick="showHome()">← Volver</button>
+    <div class="perfil-header">
+      <h1>Pablo Chill-e</h1>
+      <div class="perfil-center">
+        <img src="imagenes/pablochilleperfil.jpg" class="perfil-foto">
+        <button class="theme-toggle" id="modeToggle-pablochille">🌙</button>
+      </div>
+      <input type="text" id="searchInput-pablochille" placeholder="🔍 Buscar canción..." />
+    </div>
+    <div class="player">
+      <img src="imagenes/pablochille1.jpg" class="cover" alt="Portada">
+      <div class="song-title">Gitana – Pablo Chill-E ft. Bryartz</div>
+      <audio controls>
+        <source src="musica/Gitana.mp3" type="audio/mpeg">
+      </audio>
+    </div>
+    <div class="player">
+      <img src="imagenes/pablochille2.jpg" class="cover" alt="Portada">
+      <div class="song-title">Vibras – Pablo Chill-E</div>
+      <audio controls>
+        <source src="musica/Vibras.mp3" type="audio/mpeg">
+      </audio>
+    </div>
+    <div class="player">
+      <img src="imagenes/pablochille1.jpg" class="cover" alt="Portada">
+      <div class="song-title">Resentia – Pablo Chill-E</div>
+      <audio controls>
+        <source src="musica/Resentia.mp3" type="audio/mpeg">
+      </audio>
+    </div>
+    <div class="player">
+      <img src="imagenes/pablochille4.png" class="cover" alt="Portada">
+      <div class="song-title">Shishigang – Pablo Chill-E ft. Kevin Martes 13</div>
+      <audio controls>
+        <source src="musica/Shishigang.mp3" type="audio/mpeg">
+      </audio>
+    </div>
+    <div class="player">
+      <img src="imagenes/pablochille1.jpg" class="cover" alt="Portada">
+      <div class="song-title">Bandia – Pablo Chill-E ft. El Bai</div>
+      <audio controls>
+        <source src="musica/Bandia.mp3" type="audio/mpeg">
+      </audio>
+    </div>
+    <div class="player">
+      <img src="imagenes/pablochille2.jpg" class="cover" alt="Portada">
+      <div class="song-title">These Weones – Pablo Chill-E</div>
+      <audio controls>
+        <source src="musica/TheseWeones.mp3" type="audio/mpeg">
+      </audio>
+    </div>
+  </div>
+
+  <!-- EMINEM -->
+  <div id="eminem" class="cantante-content">
+    <button class="back-btn" onclick="showHome()">← Volver</button>
+    <div class="perfil-header">
+      <h1>Eminem</h1>
+      <div class="perfil-center">
+        <img src="imagenes/EminemPerfil.jpeg" class="perfil-foto">
+        <button class="theme-toggle" id="modeToggle-eminem">🌙</button>
+      </div>
+      <input type="text" id="searchInput-eminem" placeholder="🔍 Buscar canción..." />
+    </div>
+    <div class="player">
+      <img src="imagenes/cover.jpeg" class="cover" alt="Cover">
+      <div class="song-title">Lose Yourself – Eminem</div>
+      <audio controls>
+        <source src="musica/LoseYourselfEminem.mp3" type="audio/mpeg">
+      </audio>
+    </div>
+    <div class="player">
+      <img src="imagenes/cover2.jpeg" class="cover" alt="Cover">
+      <div class="song-title">Without Me – Eminem</div>
+      <audio controls>
+        <source src="musica/WithoutMeEminem.mp3" type="audio/mpeg">
+      </audio>
+    </div>
+    <div class="player">
+      <img src="imagenes/cover3.jpeg" class="cover" alt="Cover">
+      <div class="song-title">Mockingbird – Eminem</div>
+      <audio controls>
+        <source src="musica/MockingbirdEminem.mp3" type="audio/mpeg">
+      </audio>
+    </div>
+    <div class="player">
+      <img src="imagenes/cover4.jpeg" class="cover" alt="Cover">
+      <div class="song-title">The Real Slim Shady – Eminem</div>
+      <audio controls>
+        <source src="musica/TheRealSlimShadyEminem.mp3" type="audio/mpeg">
+      </audio>
+    </div>
+    <div class="player">
+      <img src="imagenes/cover5.jpeg" class="cover" alt="Cover">
+      <div class="song-title">Love The Way You Lie – Eminem ft. Rihanna</div>
+      <audio controls>
+        <source src="musica/LoveTheWayYouLie.mp3" type="audio/mpeg">
+      </audio>
+    </div>
+  </div>
+
+  <!-- JUICE WRLD -->
+  <div id="juicewrld" class="cantante-content">
+    <button class="back-btn" onclick="showHome()">← Volver</button>
+    <div class="perfil-header">
+      <h1>Juice WRLD</h1>
+      <div class="perfil-center">
+        <img src="imagenes/juicewrldperfil.jpeg" class="perfil-foto">
+        <button class="theme-toggle" id="modeToggle-juicewrld">🌙</button>
+      </div>
+      <input type="text" id="searchInput-juicewrld" placeholder="🔍 Buscar canción..." />
+    </div>
+    <div class="player">
+      <img src="imagenes/juice1.jpeg" class="cover" alt="Portada">
+      <div class="song-title">Lucid Dreams – Juice WRLD</div>
+      <audio controls>
+        <source src="musica/LucidDreams.mp3" type="audio/mpeg">
+      </audio>
+    </div>
+    <div class="player">
+      <img src="imagenes/juice2.jpeg" class="cover" alt="Portada">
+      <div class="song-title">All Girls Are The Same – Juice WRLD</div>
+      <audio controls>
+        <source src="musica/AllGirlsAreTheSame.mp3" type="audio/mpeg">
+      </audio>
+    </div>
+    <div class="player">
+      <img src="imagenes/juice3.jpeg" class="cover" alt="Portada">
+      <div class="song-title">Robbery – Juice WRLD</div>
+      <audio controls>
+        <source src="musica/Robbery.mp3" type="audio/mpeg">
+      </audio>
+    </div>
+    <div class="player">
+      <img src="imagenes/juice4.jpeg" class="cover" alt="Portada">
+      <div class="song-title">Legends – Juice WRLD</div>
+      <audio controls>
+        <source src="musica/Legends.mp3" type="audio/mpeg">
+      </audio>
+    </div>
+  </div>
+
+  <!-- TRIPPIE REDD -->
+  <div id="trippieredd" class="cantante-content">
+    <button class="back-btn" onclick="showHome()">← Volver</button>
+    <div class="perfil-header">
+      <h1>Trippie Redd</h1>
+      <div class="perfil-center">
+        <img src="imagenes/trippiereddperfil.jpg" class="perfil-foto">
+        <button class="theme-toggle" id="modeToggle-trippieredd">🌙</button>
+      </div>
+      <input type="text" id="searchInput-trippieredd" placeholder="🔍 Buscar canción..." />
+    </div>
+    <div class="player">
+      <img src="imagenes/trippieredd1.jpg" class="cover" alt="Portada">
+      <div class="song-title">Wish – Trippie Redd</div>
+      <audio controls>
+        <source src="musica/Wish.mp3" type="audio/mpeg">
+      </audio>
+    </div>
+    <div class="player">
+      <img src="imagenes/trippieredd2.jpg" class="cover" alt="Portada">
+      <div class="song-title">Snake Skin – Trippie Redd</div>
+      <audio controls>
+        <source src="musica/SnakeSkin.mp3" type="audio/mpeg">
+      </audio>
+    </div>
+    <div class="player">
+      <img src="imagenes/trippieredd3.jpg" class="cover" alt="Portada">
+      <div class="song-title">Fuck Love – XXXTentacion ft. Trippie Redd</div>
+      <audio controls>
+        <source src="musica/FuckLove.mp3" type="audio/mpeg">
+      </audio>
+    </div>
+    <div class="player">
+      <img src="imagenes/trippieredd4.jpg" class="cover" alt="Portada">
+      <div class="song-title">Taking A Walk – Trippie Redd</div>
+      <audio controls>
+        <source src="musica/TakingAWalk.mp3" type="audio/mpeg">
+      </audio>
+    </div>
+    <div class="player">
+      <img src="imagenes/trippieredd5.jpg" class="cover" alt="Portada">
+      <div class="song-title">Love Me More – Trippie Redd</div>
+      <audio controls>
+        <source src="musica/LoveMeMore.mp3" type="audio/mpeg">
+      </audio>
+    </div>
+  </div>
+
+<div id="mini-player" style="display:none;position:fixed;bottom:24px;right:24px;z-index:9999;background:#181818;border-radius:16px;box-shadow:0 4px 16px #0008;padding:16px 24px;display:flex;align-items:center;gap:16px;min-width:220px;max-width:320px;">
+  <img id="mini-cover" src="" alt="Cover" style="width:48px;height:48px;object-fit:cover;border-radius:8px;">
+  <div style="flex:1;min-width:0;">
+    <div id="mini-title" style="font-weight:bold;font-size:1rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;"></div>
+    <div id="mini-artist" style="font-size:0.95rem;color:#1DE9B6;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;"></div>
+  </div>
+  <button id="mini-pause" style="background:none;border:none;color:#fff;font-size:1.5rem;cursor:pointer;">⏸️</button>
+</div>
+
+<script>
+  // IDs de todos los cantantes
+  const ids = [
+    'crismj','galeegalee','chystemc','miloj','youngcister','pablochille','eminem','juicewrld','trippieredd'
+  ];
+
+  // Mini player variables
+  let currentAudio = null;
+  let currentSongInfo = null;
+
+  // Actualiza el mini player con la canción actual
+  function showMiniPlayer(info, audio) {
+    const mini = document.getElementById('mini-player');
+    document.getElementById('mini-cover').src = info.cover;
+    document.getElementById('mini-title').textContent = info.title;
+    document.getElementById('mini-artist').textContent = info.artist;
+    mini.style.display = 'flex';
+    currentAudio = audio;
+    currentSongInfo = info;
+    document.getElementById('mini-pause').textContent = audio.paused ? '▶️' : '⏸️';
+  }
+
+  function hideMiniPlayer() {
+    document.getElementById('mini-player').style.display = 'none';
+    currentAudio = null;
+    currentSongInfo = null;
+  }
+
+  // Mostrar/ocultar perfiles y títulos
+  function showCantante(id) {
+    document.getElementById('home').style.display = 'none';
+    document.querySelectorAll('.cantante-content').forEach(div => div.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    document.getElementById('main-title').style.display = 'none';
+    document.getElementById('main-subtitle').style.display = 'none';
+    window.scrollTo(0, 0);
+    hideMiniPlayer();
+  }
+  function showHome() {
+    document.getElementById('home').style.display = 'flex';
+    document.querySelectorAll('.cantante-content').forEach(div => div.classList.remove('active'));
+    document.getElementById('main-title').style.display = '';
+    document.getElementById('main-subtitle').style.display = '';
+    window.scrollTo(0, 0);
+
+    // Si hay una canción sonando, muestra el mini player
+    const playing = Array.from(document.querySelectorAll('audio')).find(a => !a.paused && !a.ended && a.currentTime > 0);
+    if (playing) {
+      const player = playing.closest('.player');
+      const cantanteDiv = playing.closest('.cantante-content');
+      const cover = player.querySelector('img.cover').src;
+      const title = player.querySelector('.song-title').textContent;
+      const artist = cantanteDiv.querySelector('.perfil-header h1').textContent;
+      showMiniPlayer({cover, title, artist}, playing);
+    } else {
+      hideMiniPlayer();
+    }
+  }
+
+  // Modo claro/oscuro por perfil
+  ids.forEach(id => {
+    const btn = document.getElementById('modeToggle-' + id);
+    if (btn) {
+      btn.addEventListener('click', function() {
+        document.body.classList.toggle('light');
+        btn.textContent = document.body.classList.contains('light') ? '☀️' : '🌙';
+      });
+    }
+  });
+
+  // Buscador de canciones por perfil
+  ids.forEach(id => {
+    const input = document.getElementById('searchInput-' + id);
+    if (input) {
+      input.addEventListener('input', function() {
+        const query = input.value.toLowerCase();
+        const parent = input.closest('.cantante-content');
+        parent.querySelectorAll('.player').forEach(card => {
+          const title = card.querySelector('.song-title').textContent.toLowerCase();
+          card.style.display = title.includes(query) ? 'block' : 'none';
+        });
+      });
+    }
+  });
+
+  // Solo una canción a la vez en toda la página (aunque cambies de perfil)
+  document.querySelectorAll('audio').forEach(audio => {
+    audio.addEventListener('play', function() {
+      document.querySelectorAll('audio').forEach(other => {
+        if (other !== audio) other.pause();
+      });
+
+      // Busca info de la canción
+      const player = audio.closest('.player');
+      const cantanteDiv = audio.closest('.cantante-content');
+      const cover = player.querySelector('img.cover').src;
+      const title = player.querySelector('.song-title').textContent;
+      const artist = cantanteDiv.querySelector('.perfil-header h1').textContent;
+
+      // Si estamos en el menú, muestra el mini player
+      if (document.getElementById('home').style.display !== 'none') {
+        showMiniPlayer({cover, title, artist}, audio);
+      } else {
+        hideMiniPlayer();
+      }
+    });
+
+    // Si la canción termina, oculta el mini player
+    audio.addEventListener('ended', function() {
+      hideMiniPlayer();
+    });
+
+    // Sincroniza el botón del mini player cuando se pausa/reproduce desde el reproductor normal
+    audio.addEventListener('pause', function() {
+      if (currentAudio === audio) {
+        document.getElementById('mini-pause').textContent = '▶️';
+      }
+    });
+    audio.addEventListener('play', function() {
+      if (currentAudio === audio) {
+        document.getElementById('mini-pause').textContent = '⏸️';
+      }
+    });
+  });
+
+  // Botón de pausa/reanudar en el mini player
+  document.getElementById('mini-pause').onclick = function() {
+    if (currentAudio) {
+      if (currentAudio.paused) {
+        currentAudio.play();
+      } else {
+        currentAudio.pause();
+      }
+      // El texto del botón se actualizará por los eventos 'play' y 'pause'
+    }
+  };
+  // Oculta el mini player al cargar la página (por si quedó visible)
+  window.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('mini-player').style.display = 'none';
+    currentAudio = null;
+    currentSongInfo = null;
+  });
+</script>
 </body>
 </html>
