@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=0.75, maximum-scale=0.75, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=0.74, maximum-scale=0.74, user-scalable=no">
   <title>Koldify</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
   <style>
@@ -139,7 +139,8 @@
     }
     body.light .player { background: #fff; }
     body.light input[type="text"] { background: #fff; color: #121212; }
-  </style>
+    
+  </style> 
 </head>
 <body>
   <h1 id="main-title">Koldify</h1>
@@ -337,6 +338,76 @@
       <div class="song-title">Rara Vez – Milo J</div>
       <audio controls>
         <source src="musica/RaraVez.mp3" type="audio/mpeg">
+      </audio>
+    </div>
+    <div class="player">
+      <img src="imagenes/miloj4.avif" class="cover" alt="Cover">
+      <div class="song-title">Milagrosa – Milo J</div>
+      <audio controls>
+        <source src="musica/Milagrosa.mp3" type="audio/mpeg">
+      </audio>
+    </div>
+    <div class="player">
+      <img src="imagenes/miloj5.webp" class="cover" alt="Cover">
+      <div class="song-title">No Soy Eterno – Milo J</div>
+      <audio controls>
+        <source src="musica/NoSoyEterno.mp3" type="audio/mpeg">
+      </audio>
+    </div>
+    <div class="player">
+      <img src="imagenes/miloj6.webp" class="cover" alt="Cover">
+      <div class="song-title">Al borde – Milo J</div>
+      <audio controls>
+        <source src="musica/AlBorde.mp3" type="audio/mpeg">
+      </audio>
+    </div>
+    <div class="player">
+      <img src="imagenes/miloj7.webp" class="cover" alt="Cover">
+      <div class="song-title">Valores del West – Milo J</div>
+      <audio controls>
+        <source src="musica/ValoresDelWest.mp3" type="audio/mpeg">
+      </audio>
+    </div>
+    <div class="player">
+      <img src="imagenes/miloj8.webp" class="cover" alt="Cover">
+      <div class="song-title">Dispara – Milo J ft. Nicki Nicole</div>
+      <audio controls>
+        <source src="musica/Dispara.mp3" type="audio/mpeg">
+      </audio>
+    </div>
+    <div class="player">
+      <img src="imagenes/miloj9.webp" class="cover" alt="Cover">
+      <div class="song-title">Toy en el Mic – Milo J</div>
+      <audio controls>
+        <source src="musica/ToyEnElMic.mp3" type="audio/mpeg">
+      </audio>
+    </div>
+    <div class="player">
+      <img src="imagenes/miloj10.png" class="cover" alt="Cover">
+      <div class="song-title">Morocha – Milo J</div>
+      <audio controls>
+        <source src="musica/Morocha.mp3" type="audio/mpeg">
+      </audio>
+    </div>
+    <div class="player">
+      <img src="imagenes/miloj11.webp" class="cover" alt="Cover">
+      <div class="song-title">Morning – Milo J</div>
+      <audio controls>
+        <source src="musica/Morning.mp3" type="audio/mpeg">
+      </audio>
+    </div>
+    <div class="player">
+      <img src="imagenes/miloj12.webp" class="cover" alt="Cover">
+      <div class="song-title">DOM1NGO – Milo J</div>
+      <audio controls>
+        <source src="musica/Domingo.mp3" type="audio/mpeg">
+      </audio>
+    </div>
+    <div class="player">
+      <img src="imagenes/miloj13.webp" class="cover" alt="Cover">
+      <div class="song-title">El Bolero – Milo J</div>
+      <audio controls>
+        <source src="musica/ElBolero.mp3" type="audio/mpeg">
       </audio>
     </div>
   </div>
@@ -718,6 +789,60 @@
     currentAudio = null;
     currentSongInfo = null;
   });
+  // Solo una canción a la vez en toda la página (aunque cambies de perfil)
+const allAudios = Array.from(document.querySelectorAll('audio'));
+allAudios.forEach((audio, idx) => {
+  audio.addEventListener('play', function() {
+    allAudios.forEach(other => {
+      if (other !== audio) other.pause();
+    });
+
+    // Busca info de la canción
+    const player = audio.closest('.player');
+    const cantanteDiv = audio.closest('.cantante-content');
+    const cover = player.querySelector('img.cover').src;
+    const title = player.querySelector('.song-title').textContent;
+    const artist = cantanteDiv.querySelector('.perfil-header h1').textContent;
+
+    // Si estamos en el menú, muestra el mini player
+    if (document.getElementById('home').style.display !== 'none') {
+      showMiniPlayer({cover, title, artist}, audio);
+    } else {
+      hideMiniPlayer();
+    }
+  });
+
+  // Si la canción termina, reproduce la siguiente si existe
+  audio.addEventListener('ended', function() {
+    hideMiniPlayer();
+    // Busca el siguiente audio visible en el DOM
+    let next = idx + 1;
+    while (next < allAudios.length) {
+      // Solo reproduce si el siguiente audio está visible (por si usas buscador)
+      const nextAudio = allAudios[next];
+      const playerDiv = nextAudio.closest('.player');
+      if (playerDiv && playerDiv.style.display !== 'none') {
+        nextAudio.currentTime = 0;
+        nextAudio.play();
+        break;
+      }
+      next++;
+    }
+  });
+
+  // Sincroniza el botón del mini player cuando se pausa/reproduce desde el reproductor normal
+  audio.addEventListener('pause', function() {
+    if (currentAudio === audio) {
+      document.getElementById('mini-pause').textContent = '▶️';
+    }
+  });
+  audio.addEventListener('play', function() {
+    if (currentAudio === audio) {
+      document.getElementById('mini-pause').textContent = '⏸️';
+    }
+  });
+});
+
 </script>
 </body>
 </html>
